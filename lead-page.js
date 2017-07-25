@@ -121,7 +121,7 @@ function importLead(e) {
                 form["cpu_class"] = components[t]["value"] === "unknown" ? null : components[t]["value"]
             }
          });
-        ajax("POST", '/sdk.php', form, function (response) {
+        ajax("POST", 'sdk.php', form, function (response) {
             Overlay.stop();
             response = JSON.parse(response.responseText);
             if (response.status === "success") {
@@ -170,7 +170,7 @@ function importOrder(e) {
                 form["cpu_class"] = components[t]["value"] === "unknown" ? null : components[t]["value"]
             }
         });
-        ajax("POST", '/sdk.php', form, function (response) {
+        ajax("POST", 'sdk.php', form, function (response) {
             Overlay.stop();
             response = JSON.parse(response.responseText);
             if (response.status === "success") {

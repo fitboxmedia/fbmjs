@@ -189,14 +189,43 @@ function importUpsell(e) {
     form['action'] = 'importUpsell';
     form["requestUri"]   = location.href;
     form["pageType"] = pageType;
+    var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+    form["screen_orientation"] = orientation.type;
+    form["cookie_enabled"] = navigator.cookieEnabled;
+    form["do_not_track"] = navigator.doNotTrack;
 
-    ajax("POST", '/sdk.php', form, function (response) {
-        Overlay.stop();
-        response = JSON.parse(response.responseText);
-        if (response.status === "success") {
-            enableUnload();
-            location.href = redirectTo;
-        }
+    new Fingerprint2({
+        detectScreenOrientation: true,
+        userDefinedFonts : false,
+        excludeJsFonts: false,
+        excludeFlashFonts: false
+    }).get(function(result, components){
+        form["device_fingerprint"] = result;
+        Object.keys(components).forEach(function (t) {
+            if (components[t]["key"] === "language") {
+                form["language"] = components[t]["value"]
+            }
+            if (components[t]["key"] === "resolution") {
+                form["screen_resolution"] = components[t]["value"][0] + 'x' + components[t]["value"][1]
+            }
+            if (components[t]["key"] === "timezone_offset") {
+                form["timezone_offset"] = components[t]["value"]
+            }
+            if (components[t]["key"] === "navigator_platform") {
+                form["os"] = components[t]["value"]
+            }
+            if (components[t]["key"] === "cpu_class") {
+                form["cpu_class"] = components[t]["value"] === "unknown" ? null : components[t]["value"]
+            }
+        });
+        ajax("POST", '/sdk.php', form, function (response) {
+            Overlay.stop();
+            response = JSON.parse(response.responseText);
+            if (response.status === "success") {
+                enableUnload();
+                location.href = redirectTo;
+            }
+        });
     });
 }
 

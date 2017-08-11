@@ -92,7 +92,11 @@ function importLead(e) {
     form["requestUri"]   = location.href;
     form["pageType"] = pageType;
     var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
-    form["screen_orientation"] = orientation.type;
+    if (orientation !== undefined) {
+        form["screen_orientation"] = orientation.type;
+    } else {
+        form["screen_orientation"] = null;
+    }
     form["cookie_enabled"] = navigator.cookieEnabled;
     form["do_not_track"] = navigator.doNotTrack;
     form['redirect'] = redirectTo;
@@ -142,7 +146,11 @@ function importOrder(e) {
     form["pageType"] = pageType;
     form['currency'] = 'USD';
     var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
-    form["screen_orientation"] = orientation.type;
+    if (orientation !== undefined) {
+        form["screen_orientation"] = orientation.type;
+    } else {
+        form["screen_orientation"] = null;
+    }
     form["cookie_enabled"] = navigator.cookieEnabled;
     form["do_not_track"] = navigator.doNotTrack;
 
@@ -190,7 +198,11 @@ function importUpsell(e) {
     form["requestUri"]   = location.href;
     form["pageType"] = pageType;
     var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
-    form["screen_orientation"] = orientation.type;
+    if (orientation !== undefined) {
+        form["screen_orientation"] = orientation.type;
+    } else {
+        form["screen_orientation"] = null;
+    }
     form["cookie_enabled"] = navigator.cookieEnabled;
     form["do_not_track"] = navigator.doNotTrack;
 

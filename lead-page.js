@@ -374,7 +374,7 @@ function cardValidate(value) {
         return false;
     }
 
-    if (isFinite(parseInt(+card_number))) {
+    if (!isFinite(parseInt(+card_number))) {
         return false;
     }
 

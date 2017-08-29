@@ -369,6 +369,15 @@ function getStates() {
 function cardValidate(value) {
     var arr = [],
         card_number = value.toString();
+
+    if (card_number.length < 13) {
+        return false;
+    }
+
+    if (!isNaN(parseInt(+card_number))) {
+        return false;
+    }
+
     for (var i = 0; i < card_number.length; i++) {
         if (i % 2 === 0) {
             var m = parseInt(card_number[i]) * 2;

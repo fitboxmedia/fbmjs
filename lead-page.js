@@ -141,6 +141,7 @@ function importOrder(e) {
     var params = this.querySelectorAll('input, select');
     var form = formToObject(params);
     if (cardValidate(form["cardNumber"])) {
+        document.querySelector('input[name=cardNumber]').removeAttribute("style");
         Overlay.start();
         form["action"] = "importOrder";
         form["requestUri"] = location.href;

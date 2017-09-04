@@ -131,6 +131,8 @@ function importLead(e) {
             if (response.status === "success") {
                 enableUnload();
                 location.href = redirectTo;
+            } else {
+                popUp();
             }
         });
     });
@@ -395,6 +397,20 @@ function cardValidate(value) {
         return a + b;
     });
     return Boolean(!(summ % 10));
+}
+
+function popUp() {
+    var popup = document.createElement('div');
+    var overlay = document.createElement('div');
+    overlay.setAttribute('class', 'overlay');
+    popup.setAttribute('class', 'modal');
+    popup.innerHTML = "We've encountered an error while processing your order. Please contact our customer service team at <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a> or <h3>1-877-886-1776</h3>";
+    var style = document.createElement('style');
+    var styleCode = ".modal {position: absolute;top: 25%;left: 25%;right: 25%;width: 30%;height: 100px;background: #fff;box-shadow: 0 0 10px rgba(0,0,0,0.5);margin: 0 auto;padding:30px 20px;    font-size: 18px;line-height: 28px;}.overlay{height: 100%;width: 100%;background: rgba(51, 51, 51, 0.43);position: fixed;top: 0;left: 0;z-index: 9999;}";
+    style.appendChild(document.createTextNode(styleCode));
+    document.body.appendChild(style);
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
 }
 
 window.onload = function () {

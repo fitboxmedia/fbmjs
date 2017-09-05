@@ -466,6 +466,7 @@ window.onload = function () {
         document.getElementById('productAmount').value = productAmount;
         document.getElementById('productShipping').value = productShipping;
         checkoutPage.addEventListener('submit', importOrder);
+        enableUnload()
     }
 
     if (typeof upsellPage !== undefined && upsellPage !== null) {
@@ -489,8 +490,6 @@ window.onload = function () {
         window.onbeforeunload =  function () {
             return false;
         };
-    } else {
-        enableUnload()
     }
 
 };

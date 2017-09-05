@@ -399,6 +399,13 @@ function cardValidate(value) {
     return Boolean(!(summ % 10));
 }
 
+function getCookie(name) {
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
 function popUp() {
     var popup = document.createElement('div');
     var overlay = document.createElement('div');
@@ -411,11 +418,15 @@ function popUp() {
     document.body.appendChild(style);
     overlay.appendChild(popup);
     document.body.appendChild(overlay);
+    document.cookie = "popup=visible; path=/;";
 }
 
 window.onload = function () {
     importClick();
     getStates();
+    if (getCookie("popup") !== undefined) {
+        popUp();
+    }
     var leadPage = document.getElementById('lead-form');
     var checkoutPage = document.getElementById('checkout-form');
     var upsellPage = document.getElementById('upsell');
@@ -429,6 +440,7 @@ window.onload = function () {
         document.getElementById('productId').value = productId;
         document.getElementById('productAmount').value = productAmount;
         document.getElementById('productShipping').value = productShipping;
+        enableUnload();
         checkoutPage.addEventListener('submit', importOrder);
     }
 

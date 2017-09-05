@@ -132,7 +132,7 @@ function importLead(e) {
                 enableUnload();
                 location.href = redirectTo;
             } else {
-                popUp();
+                setPopup();
             }
         });
     });
@@ -188,6 +188,8 @@ function importOrder(e) {
                 if (response.status === "success") {
                     enableUnload();
                     location.href = redirectTo;
+                } else {
+                    setPopup();
                 }
             });
         });
@@ -243,6 +245,8 @@ function importUpsell(e) {
             if (response.status === "success") {
                 enableUnload();
                 location.href = redirectTo;
+            } else {
+                setPopup();
             }
         });
     });
@@ -406,6 +410,7 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
+
 function popUp() {
     var popup = document.createElement('div');
     var overlay = document.createElement('div');
@@ -418,15 +423,35 @@ function popUp() {
     document.body.appendChild(style);
     overlay.appendChild(popup);
     document.body.appendChild(overlay);
-    document.cookie = "popup=visible; path=/;";
+}
+
+function setPopup() {
+    if (typeof Storage !== "undefined") {
+        localStorage.setItem("popup", "visible");
+    } else {
+        document.cookie = "popup=visible; path=/;";
+    }
+
+    popUp();
+}
+
+function getPopup() {
+    if (typeof Storage !== "undefined") {
+        if (localStorage.getItem("popup") !== null) {
+            popUp();
+        }
+    } else {
+        if (getCookie("popup") !== undefined) {
+            popUp();
+        }
+    }
 }
 
 window.onload = function () {
     importClick();
     getStates();
-    if (getCookie("popup") !== undefined) {
-        popUp();
-    }
+    getPopup();
+
     var leadPage = document.getElementById('lead-form');
     var checkoutPage = document.getElementById('checkout-form');
     var upsellPage = document.getElementById('upsell');

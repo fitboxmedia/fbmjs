@@ -416,9 +416,9 @@ function popUp() {
     var overlay = document.createElement('div');
     overlay.setAttribute('class', 'overlay');
     popup.setAttribute('class', 'modal');
-    popup.innerHTML = "We've encountered an error while processing your order. Please contact our customer service team at: <br> <br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: 1-877-886-1776";
+    popup.innerHTML = "We've encountered an error while processing your order. Please contact our customer service team at: <br> <br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>";
     var style = document.createElement('style');
-    var styleCode = ".modal {position: absolute;top: 25%;left: 25%;right: 25%;width: 30%;height: 150px;background: #fff;box-shadow: 0 0 10px rgba(0,0,0,0.5);margin: 0 auto;padding:30px 20px;font-size: 18px;line-height: 28px;}.modal a {text-decoration: none;color: black;} .overlay{height: 100%;width: 100%;background: rgba(51, 51, 51, 0.43);position: fixed;top: 0;left: 0;z-index: 9999;}";
+    var styleCode = ".modal {position: absolute;top: 25%;left: 25%;right: 25%;width: 30%;height: 160px;background: #fff;box-shadow: 0 0 20px rgba(0,0,0,0.7);margin: 0 auto;padding:30px 20px;font-size: 18px;line-height: 28px;border-radius:12px}.modal a {text-decoration: none;font-size: 20px;} .modal span {font-weight: bold;font-size: 20px;} .overlay{height: 100%;width: 100%;background: rgba(51, 51, 51, 0.43);position: fixed;top: 0;left: 0;z-index: 9999;}";
     style.appendChild(document.createTextNode(styleCode));
     document.body.appendChild(style);
     overlay.appendChild(popup);
@@ -465,8 +465,8 @@ window.onload = function () {
         document.getElementById('productId').value = productId;
         document.getElementById('productAmount').value = productAmount;
         document.getElementById('productShipping').value = productShipping;
-        enableUnload();
         checkoutPage.addEventListener('submit', importOrder);
+        enableUnload();
     }
 
     if (typeof upsellPage !== undefined && upsellPage !== null) {
@@ -485,10 +485,12 @@ window.onload = function () {
         return false;
     };
 
-    history.pushState(null, null, location.href);
-    window.onpopstate = function() {
-        history.go(1);
-    };
+    if (typeof checkoutPage === "undefined") {
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    }
 
 };
 

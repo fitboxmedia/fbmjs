@@ -480,18 +480,15 @@ window.onload = function () {
         })
     }
 
-    window.onbeforeunload =  function () {
-        return false;
-    };
 
     if (typeof checkoutPage === "undefined") {
         history.pushState(null, null, location.href);
         window.onpopstate = function () {
             history.go(1);
         };
-    } else {
-        enableUnload();
+        window.onbeforeunload =  function () {
+            return false;
+        };
     }
-
 };
 

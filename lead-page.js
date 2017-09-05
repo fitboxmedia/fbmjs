@@ -489,6 +489,9 @@ window.onload = function () {
         window.onbeforeunload =  function () {
             return false;
         };
+    } else {
+        enableUnload()
     }
+
 };
 

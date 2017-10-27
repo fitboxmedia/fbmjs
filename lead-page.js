@@ -363,7 +363,7 @@ function getStates() {
         return;
     }
 
-    var stateList = states[country];
+    var stateList = states[landingCountry];
     var options = '<option>Select State</option>';
     Object.keys(stateList).forEach(function (k) {
         options += '<option value="' + k + '">' + stateList[k] + '</option>';

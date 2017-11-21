@@ -354,6 +354,28 @@ function getStates() {
             "QC": "Quebec",
             "SK": "Saskatchewan",
             "YT": "Yukon"
+        },
+        "NOK" : {
+            "AK": "Akershus",
+            "AA": "Aust-Agder",
+            "BU": "Buskerud",
+            "FI": "Finnmark",
+            "HE": "Hedmark",
+            "HO": "Hordaland",
+            "SJ": "Svalbard",
+            "MR": "M\u00f8re og Romsdal",
+            "NO": "Nord-Tr\u00f8ndelag",
+            "NT": "Nordland",
+            "OP": "Oppland",
+            "OS": "Oslo",
+            "RO": "Rogaland",
+            "SF": "Sogn og Fjordane",
+            "ST": "S\u00f8r-Tr\u00f8ndelag",
+            "TE": "Telemark",
+            "TR": "Troms",
+            "VA": "Vest-Agder",
+            "VF": "Vestfold",
+            "OF": "\u00d8stfold"
         }
     };
 

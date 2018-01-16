@@ -189,7 +189,11 @@ function importOrder(e) {
                     enableUnload();
                     location.href = redirectTo;
                 } else {
-                    setPopup(response.messages);
+                    if (response.messages !== undefined) {
+                        popUp(response.messages)
+                    } else {
+                        setPopup();
+                    }
                 }
             });
         });
@@ -548,7 +552,7 @@ function popUp(messages = "") {
     if (messages === "") {
         popup.innerHTML = "We've encountered an error while processing your order. Please contact our customer service team at: <br> <br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>";
     } else {
-        popup.innerHTML = messages;
+        popup.innerHTML = "<br><h4>" + messages + "</h4>";
     }
 
     var style = document.createElement('style');
@@ -566,7 +570,7 @@ function setPopup(messages) {
         document.cookie = "popup=visible; path=/;";
     }
 
-    popUp(messages);
+    popUp();
 }
 
 function getPopup() {

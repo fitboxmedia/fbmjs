@@ -189,7 +189,7 @@ function importOrder(e) {
                     enableUnload();
                     location.href = redirectTo;
                 } else {
-                    setPopup();
+                    setPopup(response.messages);
                 }
             });
         });
@@ -540,12 +540,17 @@ function getCookie(name) {
 }
 
 
-function popUp() {
+function popUp(messages = "") {
     var popup = document.createElement('div');
     var overlay = document.createElement('div');
     overlay.setAttribute('class', 'overlay');
     popup.setAttribute('class', 'modal');
-    popup.innerHTML = "We've encountered an error while processing your order. Please contact our customer service team at: <br> <br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>";
+    if (messages === "") {
+        popup.innerHTML = "We've encountered an error while processing your order. Please contact our customer service team at: <br> <br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>";
+    } else {
+        popup.innerHTML = messages;
+    }
+
     var style = document.createElement('style');
     var styleCode = ".modal {position: absolute;top: 25%;left: 25%;right: 25%;width: 30%;height: 160px;background: #fff;box-shadow: 0 0 20px rgba(0,0,0,0.7);margin: 0 auto;padding:30px 20px;font-size: 18px;line-height: 28px;border-radius:12px;font-family: 'Times New Roman';}.modal a {text-decoration: none;font-size: 20px;font-family: 'Times New Roman';} .modal span {font-weight: bold;font-size: 20px;font-family: 'Times New Roman';} .overlay{height: 100%;width: 100%;background: rgba(51, 51, 51, 0.43);position: fixed;top: 0;left: 0;z-index: 9999;} @media (max-width: 860px) { .modal {left: 0;right: 0;width: initial;height: 180px; font-size: 16px;} .modal a {font-size: 16px;}}";
     style.appendChild(document.createTextNode(styleCode));
@@ -554,14 +559,14 @@ function popUp() {
     document.body.appendChild(overlay);
 }
 
-function setPopup() {
+function setPopup(messages) {
     if (typeof Storage !== "undefined") {
         localStorage.setItem("popup", "visible");
     } else {
         document.cookie = "popup=visible; path=/;";
     }
 
-    popUp();
+    popUp(messages);
 }
 
 function getPopup() {

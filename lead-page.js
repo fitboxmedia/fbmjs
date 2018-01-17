@@ -190,7 +190,7 @@ function importOrder(e) {
                     location.href = redirectTo;
                 } else {
                     if (response.messages !== undefined) {
-                        popUp(response.messages)
+                        popUp(response.messages !== "" ? response.messages : " ")
                     } else {
                         setPopup();
                     }
@@ -552,7 +552,7 @@ function popUp(messages = "") {
     if (messages === "") {
         popup.innerHTML = "We've encountered an error while processing your order. Please contact our customer service team at: <br> <br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>";
     } else {
-        popup.innerHTML = "<a href=\"javascript:void(0);\" onclick=\"document.getElementsByClassName('overlay')[0].remove()\" style=\"position: absolute;top: 0;right: 10px;font-weight: bold;color: #ccc;\">×</a><br><h4>" + messages + "</h4>";
+        popup.innerHTML = "<a href=\"javascript:void(0);\" onclick=\"document.getElementsByClassName('overlay')[0].remove()\" style=\"position: absolute;top: 0;right: 10px;font-weight: bold;color: #ccc;\">×</a><h4 style=\"text-align: center;color: #ce0101;font-family: 'Arial';\">Payment Failed</h4><p style=\"font-size: 20px;font-weight: bold;line-height: 52px;font-family: 'Arial';text-align: center;\">Please, try another card or contact you bank. <br>" + messages + "</p>";
     }
 
     var style = document.createElement('style');
@@ -563,7 +563,7 @@ function popUp(messages = "") {
     document.body.appendChild(overlay);
 }
 
-function setPopup(messages) {
+function setPopup() {
     if (typeof Storage !== "undefined") {
         localStorage.setItem("popup", "visible");
     } else {

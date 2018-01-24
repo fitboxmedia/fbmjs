@@ -132,7 +132,15 @@ function importLead(e) {
                 enableUnload();
                 location.href = redirectTo;
             } else {
-                setPopup();
+		if(response.status === "validation_error")
+		{
+			document.getElementsByName('postalCode')[0].style.border = '1px solid red';
+		}
+		else
+		{
+	                setPopup();
+		}
+
             }
         });
     });

@@ -82,14 +82,39 @@ function formToObject(form) {
      return params;
 }
 
+function isValidPostalCode(postalCode, countryCode) {
+    var postalCodeRegex = '';
+    switch (countryCode) {
+        case "US":
+            postalCodeRegex = /^\d{5}$|^\d{5}-\d{4}$/;
+            break;
+        case "CA":
+            postalCodeRegex = /^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$/;
+            break;
+        case "FR":
+            postalCodeRegex = /^([0-9]{5})$/;
+        default:
+            return true;
+    }
+
+    return postalCodeRegex.test(postalCode);
+}
+
 function importLead(e) {
     e.preventDefault();
     Overlay.start();
     var params = this.querySelectorAll('input, select');
     var form = formToObject(params);
+    var country = form['country'];
+    if (['US', 'CA', 'FR'].indexOf(country) >= 0) {
+        if (!isValidPostalCode(form['postalCode'], country)) {
+            document.getElementsByName('postalCode')[0].style.border = '1px solid red';
+            Overlay.stop();
+        }
+    }
 
     form["action"] = "importLead";
-    form["requestUri"]   = location.href;
+    form["requestUri"] = location.href;
     form["pageType"] = pageType;
     var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
     if (orientation !== undefined) {
@@ -103,10 +128,10 @@ function importLead(e) {
 
     new Fingerprint2({
         detectScreenOrientation: true,
-        userDefinedFonts : false,
+        userDefinedFonts: false,
         excludeJsFonts: false,
         excludeFlashFonts: false
-    }).get(function(result, components){
+    }).get(function (result, components) {
         form["device_fingerprint"] = result;
         Object.keys(components).forEach(function (t) {
             if (components[t]["key"] === "language") {
@@ -124,7 +149,7 @@ function importLead(e) {
             if (components[t]["key"] === "cpu_class") {
                 form["cpu_class"] = components[t]["value"] === "unknown" ? null : components[t]["value"]
             }
-         });
+        });
         ajax("POST", 'sdk.php', form, function (response) {
             Overlay.stop();
             response = JSON.parse(response.responseText);
@@ -132,14 +157,12 @@ function importLead(e) {
                 enableUnload();
                 location.href = redirectTo;
             } else {
-		if(response.status === "validation_error")
-		{
-			document.getElementsByName('postalCode')[0].style.border = '1px solid red';
-		}
-		else
-		{
-	                setPopup();
-		}
+                if (response.status === "validation_error") {
+                    document.getElementsByName('postalCode')[0].style.border = '1px solid red';
+                }
+                else {
+                    setPopup();
+                }
 
             }
         });

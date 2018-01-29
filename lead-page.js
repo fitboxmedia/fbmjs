@@ -93,6 +93,7 @@ function isValidPostalCode(postalCode, countryCode) {
             break;
         case "FR":
             postalCodeRegex = /^[0-9]{5}$/;
+            break;
         default:
             return true;
     }

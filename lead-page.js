@@ -94,6 +94,9 @@ function isValidPostalCode(postalCode, countryCode) {
         case "FR":
             postalCodeRegex = /^[0-9]{5}$/;
             break;
+        case "AU":
+            postalCodeRegex = /^[0-9]{4}$/;
+            break;
         default:
             return true;
     }
@@ -579,6 +582,16 @@ function getStates() {
             "WF": "Wallis et Futuna",
             "89": "Yonne",
             "78": "Yvelines"
+        },
+        'AUS': {
+            'NSW': 'New South Wales',
+            'QLD': 'Queensland',
+            'SA': 'South Australia',
+            'TAS': 'Tasmania',
+            'VIC': 'Victoria',
+            'WA': 'Western Australia',
+            'ACT': 'Australian Capital Territory',
+            'NT': 'Northern Territory',
         }
     };
 

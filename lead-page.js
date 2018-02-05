@@ -118,6 +118,19 @@ function emailValidate(value) {
     return false;
 }
 
+function fieldValidate(form) {
+    var error = false;
+    for (var index in form) {
+        var element = document.getElementsByName(index)[0];
+        if (element.value.trim().length === 0) {
+            element.style.border = '1px solid red';
+            error = true;
+        }
+    }
+
+    return error;
+}
+
 function error(element) {
     document.getElementsByName(element)[0].style.border = '1px solid red';
 }
@@ -133,9 +146,12 @@ function importLead(e) {
     Overlay.start();
     var params = this.querySelectorAll('input, select');
     var form = formToObject(params);
-    hideError(form);
-    var country = form['country'];
     var errors = false;
+    hideError(form);
+    if (fieldValidate(form)) {
+        errors = true;
+    }
+    var country = form['country'];
     if (['US', 'CA', 'FR'].indexOf(country) >= 0) {
         if (!isValidPostalCode(form['postalCode'], country)) {
             error('postalCode');

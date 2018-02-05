@@ -104,6 +104,10 @@ function isValidPostalCode(postalCode, countryCode) {
     return postalCodeRegex.test(postalCode);
 }
 
+function cvvValidate(value) {
+    return /^[0-9]{3,4}$/.test(value)
+}
+
 function phoneValidate(value) {
     if(!value.match(/^[0-9()-\s]{7,15}$/))
         return false;
@@ -237,64 +241,74 @@ function importOrder(e) {
     e.preventDefault();
     var params = this.querySelectorAll('input, select');
     var form = formToObject(params);
-    if (cardValidate(form["cardNumber"])) {
-        document.querySelector('input[name=cardNumber]').removeAttribute("style");
-        Overlay.start();
-        form["action"] = "importOrder";
-        form["requestUri"] = location.href;
-        form["pageType"] = pageType;
-        form['currency'] = 'USD';
-        var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
-        if (orientation !== undefined) {
-            form["screen_orientation"] = orientation.type;
-        } else {
-            form["screen_orientation"] = null;
-        }
-        form["cookie_enabled"] = navigator.cookieEnabled;
-        form["do_not_track"] = navigator.doNotTrack;
-
-        new Fingerprint2({
-            detectScreenOrientation: true,
-            userDefinedFonts: false,
-            excludeJsFonts: false,
-            excludeFlashFonts: false
-        }).get(function (result, components) {
-            form["device_fingerprint"] = result;
-            Object.keys(components).forEach(function (t) {
-                if (components[t]["key"] === "language") {
-                    form["language"] = components[t]["value"]
-                }
-                if (components[t]["key"] === "resolution") {
-                    form["screen_resolution"] = components[t]["value"][0] + 'x' + components[t]["value"][1]
-                }
-                if (components[t]["key"] === "timezone_offset") {
-                    form["timezone_offset"] = components[t]["value"]
-                }
-                if (components[t]["key"] === "navigator_platform") {
-                    form["os"] = components[t]["value"]
-                }
-                if (components[t]["key"] === "cpu_class") {
-                    form["cpu_class"] = components[t]["value"] === "unknown" ? null : components[t]["value"]
-                }
-            });
-            ajax("POST", 'sdk.php', form, function (response) {
-                Overlay.stop();
-                response = JSON.parse(response.responseText);
-                if (response.status === "success") {
-                    enableUnload();
-                    location.href = redirectTo;
-                } else {
-                    if (response.messages !== undefined) {
-                        popUp(response.messages !== "" ? response.messages : " ")
-                    } else {
-                        setPopup();
-                    }
-                }
-            });
-        });
-    } else {
-        document.querySelector('input[name=cardNumber]').setAttribute("style", "border: 1px solid red;");
+    hideError(form);
+    var errors = false;
+    if (!cvvValidate(form['cardSecurityCode'])) {
+        error('cardSecurityCode');
+        errors = true;
     }
+    if (!cardValidate(form["cardNumber"])) {
+        error('cardNumber');
+        errors = true;
+    }
+
+    if (errors) {
+        return false;
+    }
+
+    Overlay.start();
+    form["action"] = "importOrder";
+    form["requestUri"] = location.href;
+    form["pageType"] = pageType;
+    form['currency'] = 'USD';
+    var orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+    if (orientation !== undefined) {
+        form["screen_orientation"] = orientation.type;
+    } else {
+        form["screen_orientation"] = null;
+    }
+    form["cookie_enabled"] = navigator.cookieEnabled;
+    form["do_not_track"] = navigator.doNotTrack;
+
+    new Fingerprint2({
+        detectScreenOrientation: true,
+        userDefinedFonts: false,
+        excludeJsFonts: false,
+        excludeFlashFonts: false
+    }).get(function (result, components) {
+        form["device_fingerprint"] = result;
+        Object.keys(components).forEach(function (t) {
+            if (components[t]["key"] === "language") {
+                form["language"] = components[t]["value"]
+            }
+            if (components[t]["key"] === "resolution") {
+                form["screen_resolution"] = components[t]["value"][0] + 'x' + components[t]["value"][1]
+            }
+            if (components[t]["key"] === "timezone_offset") {
+                form["timezone_offset"] = components[t]["value"]
+            }
+            if (components[t]["key"] === "navigator_platform") {
+                form["os"] = components[t]["value"]
+            }
+            if (components[t]["key"] === "cpu_class") {
+                form["cpu_class"] = components[t]["value"] === "unknown" ? null : components[t]["value"]
+            }
+        });
+        ajax("POST", 'sdk.php', form, function (response) {
+            Overlay.stop();
+            response = JSON.parse(response.responseText);
+            if (response.status === "success") {
+                enableUnload();
+                location.href = redirectTo;
+            } else {
+                if (response.messages !== undefined) {
+                    popUp(response.messages !== "" ? response.messages : " ")
+                } else {
+                    setPopup();
+                }
+            }
+        });
+    });
 }
 
 function importUpsell(e) {

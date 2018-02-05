@@ -94,6 +94,9 @@ function isValidPostalCode(postalCode, countryCode) {
         case "FR":
             postalCodeRegex = /^[0-9]{5}$/;
             break;
+        case "AU":
+            postalCodeRegex = /^[0-9]{4}$/;
+            break;
         default:
             return true;
     }
@@ -101,61 +104,17 @@ function isValidPostalCode(postalCode, countryCode) {
     return postalCodeRegex.test(postalCode);
 }
 
-function phoneValidate(value) {
-    if(!value.match(/^[0-9()-\s]{7,15}$/))
-        return false;
-
-    value = value.replace(/[^0-9]/,'');
-    if(value.length >= 7)
-        return true;
-}
-
-function emailValidate(value) {
-    var regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i;
-    if(regex.test(value))
-        return true;
-
-    return false;
-}
-
-function error(element) {
-    document.getElementsByName(element)[0].style.border = '1px solid red';
-}
-
-function hideError(form) {
-    for (var index in form) {
-        document.getElementsByName(index)[0].style.border = '1px solid #dfdfdf';
-    }
-}
-
 function importLead(e) {
     e.preventDefault();
     Overlay.start();
     var params = this.querySelectorAll('input, select');
     var form = formToObject(params);
-    hideError(form);
     var country = form['country'];
-    var errors = false;
     if (['US', 'CA', 'FR'].indexOf(country) >= 0) {
         if (!isValidPostalCode(form['postalCode'], country)) {
-            error('postalCode');
-            errors = true;
+            document.getElementsByName('postalCode')[0].style.border = '1px solid red';
+            Overlay.stop();
         }
-    }
-
-    if (!phoneValidate(form['phoneNumber'])) {
-        error('phoneNumber');
-        errors = true;
-    }
-
-    if (!emailValidate(form['email'])) {
-        error('email');
-        errors = true;
-    }
-
-    if (errors) {
-        Overlay.stop();
-        return false;
     }
 
     form["action"] = "importLead";
@@ -563,6 +522,16 @@ function getStates() {
             "WF": "Wallis et Futuna",
             "89": "Yonne",
             "78": "Yvelines"
+        },
+        'AUS': {
+            'NSW': 'New South Wales',
+            'QLD': 'Queensland',
+            'SA': 'South Australia',
+            'TAS': 'Tasmania',
+            'VIC': 'Victoria',
+            'WA': 'Western Australia',
+            'ACT': 'Australian Capital Territory',
+            'NT': 'Northern Territory',
         }
     };
 

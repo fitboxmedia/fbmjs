@@ -631,7 +631,7 @@ function cardValidate(value) {
     var arr = [],
         card_number = value.toString();
 
-    if (card_number.length < 13) {
+    if (card_number.length < 16) {
         return false;
     }
 

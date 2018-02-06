@@ -625,6 +625,9 @@ function getStates() {
 }
 
 function cardValidate(value) {
+    if (value.trim().length < 16) {
+        return false;
+    }
     var arr = [],
         card_number = value.toString();
 

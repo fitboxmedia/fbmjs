@@ -616,12 +616,26 @@ function getStates() {
     }
 
     var stateList = states[landingCountry];
-    var options = '<option value="">Select State</option>';
+    var options = getSelectState(landingCountry);
     Object.keys(stateList).forEach(function (k) {
         options += '<option value="' + k + '">' + stateList[k] + '</option>';
     });
     selectState[0].innerHTML = options;
 
+}
+
+function getSelectState(country) {
+    var selectState = 'Select State';
+    switch (country) {
+        case "NOK":
+            selectState = 'Velg stat';
+            break;
+        case "FRA":
+            selectState = 'Séléctionnez la province';
+            break;
+    }
+
+    return '<option value="">' + selectState + '</option>';
 }
 
 function cardValidate(value) {

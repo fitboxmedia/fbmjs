@@ -113,7 +113,7 @@ function phoneValidate(value) {
         return false;
 
     value = value.replace(/[^0-9]/,'');
-    if(value.length >= 7)
+    if(value.length >= 8)
         return true;
 }
 
@@ -153,6 +153,7 @@ function importLead(e) {
     Overlay.start();
     var params = this.querySelectorAll('input, select');
     var form = formToObject(params);
+    form['phoneNumber'] = form['phoneNumber'].substr(1);
     var errors = false;
     hideError(form);
     if (fieldValidate(form)) {
@@ -638,6 +639,40 @@ function getSelectState(country) {
     return '<option value="">' + selectState + '</option>';
 }
 
+function phoneFormater() {
+    var phoneNumber = document.getElementsByName('phoneNumber')[0];
+    if (phoneNumber !== undefined || phoneNumber !== null) {
+        var countryList = {
+            'USA': '+1',
+            'NOK': '+47',
+            'FRA': '+33',
+            'CA' : '+1',
+            'AUS': '+61'
+        };
+        phoneNumber.onclick = function() {
+            if (this.value.length >= countryList[landingCountry].length) {
+                this.value = this.value;
+            } else {
+                this.value = countryList[landingCountry];
+            }
+            this.selectionStart = this.selectionEnd  = this.value.length;
+            this.focus();
+        };
+        phoneNumber.onmousedown = function(e){
+            this.focus();
+            e.preventDefault();
+        };
+        phoneNumber.onkeydown = function (e) {
+            if (e.keyCode === 8 && this.value.length <= countryList[landingCountry].length || e.keyCode === 32) {
+                e.preventDefault();return;
+            }
+            if(!isFinite(e.key) && e.keyCode !== 8) {
+                e.preventDefault();
+            }
+        }
+    }
+}
+
 function cardValidate(value) {
     if (value.trim().length < 16) {
         return false;
@@ -725,6 +760,7 @@ window.onload = function () {
     importClick();
     getStates();
     getPopup();
+    phoneFormater();
 
     var leadPage = document.getElementById('lead-form');
     var checkoutPage = document.getElementById('checkout-form');

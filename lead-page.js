@@ -641,7 +641,7 @@ function getSelectState(country) {
 
 function phoneFormater() {
     var phoneNumber = document.getElementsByName('phoneNumber')[0];
-    if (phoneNumber !== undefined || phoneNumber !== null) {
+    if (phoneNumber !== undefined && phoneNumber !== null) {
         var countryList = {
             'USA': '+1',
             'NOK': '+47',

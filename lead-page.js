@@ -670,6 +670,16 @@ function phoneFormater() {
                 e.preventDefault();
             }
         }
+        phoneNumber.ontouchmove = function (e) {
+            e.preventDefault();
+            if (this.value.length >= countryList[landingCountry].length) {
+                this.value = this.value;
+            } else {
+                this.value = countryList[landingCountry];
+            }
+            this.selectionStart = this.selectionEnd  = this.value.length;
+            this.focus();
+        };
     }
 }
 

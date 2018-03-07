@@ -253,6 +253,12 @@ function importOrder(e) {
         errors = true;
     }
 
+    if(!dateValidate(form["cardMonth"],form["cardYear"])){
+        error('cardMonth');
+        error('cardYear');
+        errors = true;
+    }
+
     if (errors) {
         return false;
     }
@@ -705,6 +711,14 @@ function cardValidate(value) {
         return a + b;
     });
     return Boolean(!(summ % 10));
+}
+
+function dateValidate(month, year) {
+    var date = new Date();
+    if(month <= ("0" + (date.getMonth() + 1)).slice(-2) && year <= date.getFullYear()){
+        return false;
+    }
+    return true;
 }
 
 function getCookie(name) {

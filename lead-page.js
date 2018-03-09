@@ -366,7 +366,11 @@ function importUpsell(e) {
                 enableUnload();
                 location.href = redirectTo;
             } else {
-                setPopup();
+                if (response.messages !== undefined) {
+                    popUp(response.messages !== "" ? response.messages : " ")
+                } else {
+                    setPopup();
+                }
             }
         });
     });

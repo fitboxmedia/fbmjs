@@ -79,7 +79,7 @@ function formToObject(form) {
             params[form[i].name] = form[i].value;
         i++;
     }
-     return params;
+    return params;
 }
 
 function isValidPostalCode(postalCode, countryCode) {
@@ -252,7 +252,6 @@ function importOrder(e) {
         error('cardNumber');
         errors = true;
     }
-
     if(!dateValidate(form["cardMonth"],form["cardYear"])){
         error('cardMonth');
         error('cardYear');
@@ -366,11 +365,7 @@ function importUpsell(e) {
                 enableUnload();
                 location.href = redirectTo;
             } else {
-                if (response.messages !== undefined) {
-                    popUp(response.messages !== "" ? response.messages : " ")
-                } else {
-                    setPopup();
-                }
+                setPopup();
             }
         });
     });
@@ -736,10 +731,17 @@ function getCookie(name) {
 function popUp(messages = "") {
     var popup = document.createElement('div');
     var overlay = document.createElement('div');
+    var countryList = {
+        "USA": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
+        "NOK": "Det oppstod en feil ved behandling av bestillingen din. Ta kontakt med vår kundeservice via:<br><br>E-post: <a href=\"mailto:support_no@" + location.host + "\" />support_no@" + location.host + "</a><br>Telefon: <span>800-24-881</span>",
+        "FRA": "Une erreur est survenue durant votre commande. Merci de contacter notre Service Client au:<br><br>Email: <a href=\"mailto:support_fr@" + location.host + "\" />support_fr@" + location.host + "</a><br>Téléphone: 0805-089-013",
+        "CA" : "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
+        "AUS": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>"
+    };
     overlay.setAttribute('class', 'overlay');
     popup.setAttribute('class', 'modal');
     if (messages === "") {
-        popup.innerHTML = "We've encountered an error while processing your order. Please contact our customer service team at: <br> <br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>";
+        popup.innerHTML = countryList[landingCountry];
     } else {
         popup.innerHTML = "<a href=\"javascript:void(0);\" onclick=\"document.getElementsByClassName('overlay')[0].remove()\" style=\"position: absolute;top: 0;right: 10px;font-weight: bold;color: #ccc;\">×</a><h4 style=\"text-align: center;color: #ce0101;font-family: 'Arial';\">Payment Failed</h4><p style=\"font-size: 20px;font-weight: bold;line-height: 52px;font-family: 'Arial';text-align: center;\">Please, try another card or contact you bank. <br>" + messages + "</p>";
     }
@@ -821,4 +823,3 @@ window.onload = function () {
     }
 
 };
-

@@ -785,6 +785,7 @@ window.onload = function () {
     var leadPage = document.getElementById('lead-form');
     var checkoutPage = document.getElementById('checkout-form');
     var upsellPage = document.getElementById('upsell');
+    var upsell = document.getElementById('upsellNumber');
 
     if (typeof leadPage !== undefined && leadPage !== null) {
         leadPage.addEventListener('submit',importLead);
@@ -800,6 +801,10 @@ window.onload = function () {
     }
 
     if (typeof upsellPage !== undefined && upsellPage !== null) {
+        if(upsellNumber !== undefined && upsellNumber !== null && upsell !== undefined && upsell !== null) {
+            document.getElementById('upsellNumber').value = upsellNumber;
+        }
+
         document.getElementById('productName').value = productName;
         document.getElementById('productId').value = productId;
         document.getElementById('productAmount').value = productAmount;

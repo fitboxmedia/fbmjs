@@ -822,4 +822,18 @@ window.onload = function () {
         };
     }
 
+    if (pageType !== undefined && pageType === 'thankyouPage') {
+        var params = {
+            action: 'descriptor'
+        };
+
+        ajax("GET", 'sdk.php', params, function (response) {
+            response = JSON.parse(response.responseText);
+            if (response.status === "success") {
+                var descriptors = response.descriptors.join(' ');
+                document.getElementById('descriptors').innerHTML += descriptors;
+            }
+        });
+    }
+
 };

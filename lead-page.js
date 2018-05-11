@@ -669,6 +669,9 @@ function phoneFormater() {
             'AUS': '+61'
         };
         phoneNumber.onfocus = function() {
+            if (this.hasAttribute('readonly')) {
+                this.removeAttribute('readonly')
+            }
             if (this.value.length >= countryList[landingCountry].length) {
                 this.value = this.value;
             } else {

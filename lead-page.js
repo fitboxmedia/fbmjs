@@ -682,6 +682,9 @@ function phoneFormater() {
             e.preventDefault();
         };
         phoneNumber.onkeydown = function (e) {
+            if (e.keyCode === 9) {
+                return;
+            }
             if (e.keyCode === 8 && this.value.length <= countryList[landingCountry].length || e.keyCode === 32) {
                 e.preventDefault();return;
             }

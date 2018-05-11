@@ -668,7 +668,7 @@ function phoneFormater() {
             'CA' : '+1',
             'AUS': '+61'
         };
-        phoneNumber.onclick = function() {
+        phoneNumber.onfocus = function() {
             if (this.value.length >= countryList[landingCountry].length) {
                 this.value = this.value;
             } else {

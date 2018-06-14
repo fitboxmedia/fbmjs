@@ -751,6 +751,15 @@ function getCookie(name) {
 function popUp(messages = "") {
     var popup = document.createElement('div');
     var overlay = document.createElement('div');
+
+    var countryListFirst = {
+        "USA": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
+        "NOK": "Det oppstod en feil ved behandling av bestillingen din. Ta kontakt med vår kundeservice via:<br><br>E-post: <a href=\"mailto:support@" + location.host + "\" />support@" + location.host + "</a><br>Telefon: <span>+44-2039365433</span>",
+        "FRA": "Une erreur est survenue durant votre commande. Merci de contacter notre Service Client au:<br><br>Email: <a href=\"mailto:support@" + location.host + "\" />support@" + location.host + "</a><br>Téléphone: 0805-089-013",
+        "CA" : "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
+        "AUS": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>"
+    };
+
     var countryList = {
         "USA": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
         "NOK": "Det oppstod en feil ved behandling av bestillingen din. Ta kontakt med vår kundeservice via:<br><br>E-post: <a href=\"mailto:support_no@" + location.host + "\" />support_no@" + location.host + "</a><br>Telefon: <span>800-24-881</span>",
@@ -758,6 +767,11 @@ function popUp(messages = "") {
         "CA" : "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
         "AUS": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>"
     };
+
+    if('santege.com' === location.host){
+        countryList = countryListFirst;
+    }
+
     overlay.setAttribute('class', 'overlay');
     popup.setAttribute('class', 'modal');
     if (messages === "") {

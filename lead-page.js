@@ -627,6 +627,29 @@ function getStates() {
             'WA': 'Western Australia',
             'ACT': 'Australian Capital Territory',
             'NT': 'Northern Territory',
+        },
+        "SWE": {
+            "K": "Blekinge län",
+            "W": "Dalarnas län",
+            "X": "Gävleborgs län",
+            "I": "Gotlands län",
+            "N": "Hallands län",
+            "Z": "Jämtlands län",
+            "F": "Jönköpings län",
+            "H": "Kalmar län",
+            "G": "Kronobergs län",
+            "BD": "Norrbottens län",
+            "T": "Örebro län",
+            "E": "Östergötlands län",
+            "M": "Skåne län",
+            "D": "Södermanlands län",
+            "AB": "Stockholms län",
+            "C": "Uppsala län",
+            "S": "Värmlands län",
+            "AC": "Västerbottens län",
+            "Y": "Västernorrlands län",
+            "U": "Västmanlands län",
+            "O": "Västra Götalands län"
         }
     };
 

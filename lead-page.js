@@ -380,7 +380,7 @@ function showDescriptors() {
     ajax("GET", 'sdk.php', params, function (response) {
         response = JSON.parse(response.responseText);
         if (response.status === "success") {
-            var descriptors = response.descriptors.join(' ');
+            var descriptors = response.descriptors.join(' <br>');
             document.getElementById('descriptors').innerHTML += descriptors;
         }
     });

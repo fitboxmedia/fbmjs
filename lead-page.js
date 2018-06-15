@@ -677,6 +677,9 @@ function getSelectState(country) {
         case "FRA":
             selectState = 'Séléctionnez la province';
             break;
+        case "SWE":
+            selectState = 'Välj ett land';
+            break;
     }
 
     return '<option value="">' + selectState + '</option>';

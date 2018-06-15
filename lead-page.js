@@ -242,6 +242,7 @@ function importOrder(e) {
     e.preventDefault();
     var params = this.querySelectorAll('input, select');
     var form = formToObject(params);
+    form['cardNumber'] = form['cardNumber'].split(" ").join("");
     hideError(form);
     var errors = false;
     if (!cvvValidate(form['cardSecurityCode'])) {

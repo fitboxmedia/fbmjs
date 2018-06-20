@@ -780,38 +780,25 @@ function popUp(messages = "") {
     var popup = document.createElement('div');
     var overlay = document.createElement('div');
 
-    var countryListFirst = {
-        "USA": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
-        "NOK": "Det oppstod en feil ved behandling av bestillingen din. Ta kontakt med vår kundeservice via:<br><br>E-post: <a href=\"mailto:support@" + location.host + "\" />support@" + location.host + "</a><br>Telefon: <span>+44-2039365433</span>",
-        "FRA": "Une erreur est survenue durant votre commande. Merci de contacter notre Service Client au:<br><br>Email: <a href=\"mailto:support@" + location.host + "\" />support@" + location.host + "</a><br>Téléphone: 0805-089-013",
-        "CA" : "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
-        "AUS": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
-        "SWE": "Vi har stött på ett fel när du behandlar din beställning. Vänligen kontakta vår kundtjänst på: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Fon: <span>1-877-886-1776</span>"
-    };
-
     var countryList = {
-        "USA": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
-        "NOK": "Det oppstod en feil ved behandling av bestillingen din. Ta kontakt med vår kundeservice via:<br><br>E-post: <a href=\"mailto:support_no@" + location.host + "\" />support_no@" + location.host + "</a><br>Telefon: <span>800-24-881</span>",
-        "FRA": "Une erreur est survenue durant votre commande. Merci de contacter notre Service Client au:<br><br>Email: <a href=\"mailto:support_fr@" + location.host + "\" />support_fr@" + location.host + "</a><br>Téléphone: 0805-089-013",
-        "CA" : "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
-        "AUS": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Phone: <span>1-877-886-1776</span>",
-        "SWE": "Vi har stött på ett fel när du behandlar din beställning. Vänligen kontakta vår kundtjänst på: <br><br>Email: <a href=\"mailto:customer_support@" + location.host + "\" />customer_support@" + location.host + "</a><br>Fon: <span>1-877-886-1776</span>"
+        "USA": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Phone: <span>" + customerPhone + "</span>",
+        "CA" : "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Phone: <span>" + customerPhone + "</span>",
+        "AUS": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Phone: <span>" + customerPhone + "</span>",
+        "NOK": "Det oppstod en feil ved behandling av bestillingen din. Ta kontakt med vår kundeservice via:<br><br>E-post: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Telefon: <span>" + customerPhone + "</span>",
+        "FRA": "Une erreur est survenue durant votre commande. Merci de contacter notre Service Client au:<br><br>E-mail: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Téléphone: <span>" + customerPhone + "</span>",
+        "SWE": "Vi har stött på ett fel när du behandlar din beställning. Vänligen kontakta vår kundtjänst på: <br><br>E-post: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Telefonnummer: <span>" + customerPhone + "</span>"
     };
 
-    if('santege.com' === location.host){
-        countryList = countryListFirst;
-    }
-
-    overlay.setAttribute('class', 'overlay');
-    popup.setAttribute('class', 'modal');
+    overlay.setAttribute('class', 'notifyOverlay');
+    popup.setAttribute('class', 'notifyModal');
     if (messages === "") {
         popup.innerHTML = countryList[landingCountry];
     } else {
-        popup.innerHTML = "<a href=\"javascript:void(0);\" onclick=\"document.getElementsByClassName('overlay')[0].remove()\" style=\"position: absolute;top: 0;right: 10px;font-weight: bold;color: #ccc;\">×</a><h4 style=\"text-align: center;color: #ce0101;font-family: 'Arial';\">Payment Failed</h4><p style=\"font-size: 20px;font-weight: bold;line-height: 52px;font-family: 'Arial';text-align: center;\">Please, try another card or contact you bank. <br>" + messages + "</p>";
+        popup.innerHTML = "<a href=\"javascript:void(0);\" onclick=\"document.getElementsByClassName('notifyOverlay')[0].remove()\" style=\"position: absolute;top: 0;right: 10px;font-weight: bold;color: #ccc;\">×</a><h4 style=\"text-align: center;color: #ce0101;font-family: 'Arial';\">Payment Failed</h4><p style=\"font-size: 20px;font-weight: bold;line-height: 52px;font-family: 'Arial';text-align: center;\">Please, try another card or contact you bank. <br>" + messages + "</p>";
     }
 
     var style = document.createElement('style');
-    var styleCode = ".modal {position: absolute;top: 25%;left: 25%;right: 25%;width: 30%;height: 160px;background: #fff;box-shadow: 0 0 20px rgba(0,0,0,0.7);margin: 0 auto;padding:30px 20px;font-size: 18px;line-height: 28px;border-radius:12px;font-family: 'Times New Roman';}.modal a {text-decoration: none;font-size: 20px;font-family: 'Times New Roman';} .modal span {font-weight: bold;font-size: 20px;font-family: 'Times New Roman';} .overlay{height: 100%;width: 100%;background: rgba(51, 51, 51, 0.43);position: fixed;top: 0;left: 0;z-index: 9999;} @media (max-width: 860px) { .modal {left: 0;right: 0;width: initial;height: 180px; font-size: 16px;} .modal a {font-size: 16px;}}";
+    var styleCode = ".notifyModal {position: absolute;top: 25%;left: 25%;right: 25%;width: 30%;height: 160px;background: #fff;box-shadow: 0 0 20px rgba(0,0,0,0.7);margin: 0 auto;padding:30px 20px;font-size: 18px;line-height: 28px;border-radius:12px;font-family: 'Times New Roman';}.notifyModal a {text-decoration: none;font-size: 20px;font-family: 'Times New Roman';} .notifyModal span {font-weight: bold;font-size: 20px;font-family: 'Times New Roman';} .notifyOverlay{height: 100%;width: 100%;background: rgba(51, 51, 51, 0.43);position: fixed;top: 0;left: 0;z-index: 9999;} @media (max-width: 860px) { .notifyModal {left: 0;right: 0;width: initial;height: 180px; font-size: 16px;} .notifyModal a {font-size: 16px;}}";
     style.appendChild(document.createTextNode(styleCode));
     document.body.appendChild(style);
     overlay.appendChild(popup);

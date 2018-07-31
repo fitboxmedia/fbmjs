@@ -770,12 +770,12 @@ class Order extends Import {
                 type: "card"
             },
             "cardSecurityCode": {
-                value: form[1].value,
+                value: form[3].value,
                 type: "cvv"
             },
             "date": {
-                month: form[2].value,
-                year: form[3].value,
+                month: form[1].value,
+                year: form[2].value,
                 type: "date"
             }
         };
@@ -796,6 +796,7 @@ class Order extends Import {
                         return result;
                     }
                     result = validator.validate(form[elem].type, form[elem].value);
+                    alert(result);
                     return result;
                 };
                 if (!answer()) {

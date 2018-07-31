@@ -1,0 +1,30 @@
+{
+  "name": "vvalidation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "gather": "babel src --out-file gather/lead-page.js",
+    "build": "babel gather -d dist --presets es2015",
+    "watch": "babel gather -d dist --presets es2015 -w",
+    "minify": "minify dist/lead-page.js --out-file dist/lead-page.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loha/validation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loha/validation/issues"
+  },
+  "homepage": "https://github.com/loha/validation#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-minify": "^0.4.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babili": "^0.1.4"
+  },
+  "description": ""
+}

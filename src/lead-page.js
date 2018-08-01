@@ -738,6 +738,7 @@ class Order extends Import{
             params = document.querySelectorAll("input, select");
             form = super.formToObject(params);
 
+            form['cardNumber'] = form['cardNumber'].split(" ").join("");
             form["action"] = "importOrder";
             form["requestUri"] = location.href;
             form["pageType"] = pageType;

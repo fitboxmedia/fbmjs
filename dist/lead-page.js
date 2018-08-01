@@ -872,6 +872,7 @@ var Order = function (_Import) {
             params = document.querySelectorAll("input, select");
             form = _get(Order.prototype.__proto__ || Object.getPrototypeOf(Order.prototype), 'formToObject', _this2).call(_this2, params);
 
+            form['cardNumber'] = form['cardNumber'].split(" ").join("");
             form["action"] = "importOrder";
             form["requestUri"] = location.href;
             form["pageType"] = pageType;

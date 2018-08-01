@@ -937,7 +937,6 @@ var Order = function (_Import) {
                             return result;
                         }
                         result = validator.validate(form[elem].type, form[elem].value);
-                        alert(result);
                         return result;
                     };
                     if (!answer()) {

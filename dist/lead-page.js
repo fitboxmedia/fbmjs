@@ -1013,9 +1013,10 @@ var Construct = function () {
         Popup.get();
         Formater.phone();
         if (pageType.indexOf('upsellPage') + 1) {
-            pageType = "upsellPage";
+            this["upsellPage"]();
+        } else {
+            this[pageType]();
         }
-        this[pageType]();
     }
 
     _createClass(Construct, [{
@@ -1057,6 +1058,7 @@ var Construct = function () {
     }, {
         key: 'upsellPage',
         value: function upsellPage() {
+
             var form = document.getElementById('upsell');
             if ((typeof form === 'undefined' ? 'undefined' : _typeof(form)) !== undefined && form !== null) {
                 document.getElementById('productName').value = productName;

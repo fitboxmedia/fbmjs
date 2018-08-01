@@ -860,9 +860,10 @@ class Construct{
         Popup.get();
         Formater.phone();
         if(pageType.indexOf('upsellPage') + 1) {
-            pageType = "upsellPage";
+            this["upsellPage"]();
+        } else {
+            this[pageType]();
         }
-        this[pageType]();
     }
 
     leadPage(){
@@ -900,6 +901,7 @@ class Construct{
     }
 
     upsellPage(){
+
         let form = document.getElementById('upsell');
         if (typeof form !== undefined && form !== null) {
             document.getElementById('productName').value = productName;

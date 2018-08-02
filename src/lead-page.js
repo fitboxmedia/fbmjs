@@ -524,7 +524,7 @@ class Import{
         let i = 0;
         while (i < form.length) {
             if (form[i].name !== "")
-                params[form[i].name] = form[i].value;
+                params[form[i].name] = form[i].value.trim();
             i++;
         }
         return params;

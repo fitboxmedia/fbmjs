@@ -632,7 +632,7 @@ var Import = function () {
             var params = {};
             var i = 0;
             while (i < form.length) {
-                if (form[i].name !== "") params[form[i].name] = form[i].value;
+                if (form[i].name !== "") params[form[i].name] = form[i].value.trim();
                 i++;
             }
             return params;
@@ -1099,8 +1099,8 @@ var Validator = function () {
             "initial": /^[A-zÀ-ÿA-åА-я.\-']{3,32}$/,
             "email": /^([a-z0-9!#$%&'*+\-/=?^_`{|}~][.]{0,1}){1,63}[a-z0-9!#$%&'*+\-/=?^_`{|}~]@[a-z0-9][a-z0-9.\-]{1,63}[a-z0-9]\.[a-z]{2,4}$/i,
             "phone": /^[\+0-9]{8,15}$/,
-            "address": /^[0-9]{0,127}([A-zÀ-ÿA-åА-я#.,;:"'°/\-]+[0-9]*[\s]{0,1}){3,127}[0-9A-zÀ-ÿA-åА-я#.,;:"'°]$/,
-            "city": /^[A-zÀ-ÿA-åА-я]([A-zÀ-ÿA-åА-я/\-\)\(.\"\'][\s]{0,1}){1,126}[A-zÀ-ÿA-åА-я]$/,
+            "address": /^[A-zÀ-ÿA-åА-я0-9#.,;:"'°/\-\s]{3,127}[0-9A-zÀ-ÿA-åА-я#.,;:"'°]$/,
+            "city": /^[A-zÀ-ÿA-åА-я]([A-zÀ-ÿA-åА-я/\-\)\(.\"\'\s]){1,126}[A-zÀ-ÿA-åА-я]$/,
             "cvv": /^[0-9]{3,4}$/,
             "postalCode": {
                 "US": /^\d{5}$|^\d{5}-\d{4}$/,
@@ -1133,6 +1133,9 @@ var Validator = function () {
     _createClass(Validator, [{
         key: 'validate',
         value: function validate(type, value1, value2) {
+
+            value1 = value1.trim();
+
             if (typeof value2 !== "undefined") {
                 value2 = value2.trim();
                 return this[type](value1, value2);

@@ -650,6 +650,29 @@ function getStates() {
             "Y": "Västernorrlands län",
             "U": "Västmanlands län",
             "O": "Västra Götalands län"
+        },
+        "DAN": {
+            "070": "Århus",
+            "040": "Bornholm",
+            "84": "Capital",
+            "82": "Central Jutland",
+            "147": "Frederiksberg City",
+            "020": "Frederiksborg",
+            "042": "Fyn",
+            "015": "København",
+            "101": "København City",
+            "080": "Nordjylland",
+            "81": "North Jutland",
+            "055": "Ribe",
+            "065": "Ringkøbing",
+            "025": "Roskilde",
+            "83": "South Denmark",
+            "035": "Storstrøm",
+            "050": "Sønderjylland",
+            "060": "Vejle",
+            "030": "Vestsjælland",
+            "076": "Viborg",
+            "85": "Zeeland"
         }
     };
 
@@ -680,6 +703,9 @@ function getSelectState(country) {
         case "SWE":
             selectState = 'Välj ett land';
             break;
+        case "DAN":
+            selectState = 'Område';
+            break;
     }
 
     return '<option value="">' + selectState + '</option>';
@@ -694,7 +720,8 @@ function phoneFormater() {
             'FRA': '+33',
             'CA' : '+1',
             'AUS': '+61',
-            'SWE': '+46'
+            'SWE': '+46',
+            'DAN': '+45'
         };
         phoneNumber.onfocus = function() {
             if (this.hasAttribute('readonly')) {
@@ -786,7 +813,8 @@ function popUp(messages = "") {
         "AUS": "We've encountered an error while processing your order. Please contact our customer service team at: <br><br>Email: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Phone: <span>" + customerPhone + "</span>",
         "NOK": "Det oppstod en feil ved behandling av bestillingen din. Ta kontakt med vår kundeservice via:<br><br>E-post: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Telefon: <span>" + customerPhone + "</span>",
         "FRA": "Une erreur est survenue durant votre commande. Merci de contacter notre Service Client au:<br><br>E-mail: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Téléphone: <span>" + customerPhone + "</span>",
-        "SWE": "Vi har stött på ett fel när du behandlar din beställning. Vänligen kontakta vår kundtjänst på: <br><br>E-post: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Telefonnummer: <span>" + customerPhone + "</span>"
+        "SWE": "Vi har stött på ett fel när du behandlar din beställning. Vänligen kontakta vår kundtjänst på: <br><br>E-post: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Telefonnummer: <span>" + customerPhone + "</span>",
+        "DAN": "Vi har fundet en fejl under behandlingen af din ordre. Kontakt vores kundeserviceteam på: <br><br>E-mail: <a href=\"mailto:" + customerEmail + "\" />" + customerEmail + "</a><br>Telefon: <span>" + customerPhone + "</span>"
     };
 
     overlay.setAttribute('class', 'notifyOverlay');

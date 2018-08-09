@@ -826,7 +826,7 @@ function popUp(messages = "") {
     }
 
     var style = document.createElement('style');
-    var styleCode = ".notifyModal {position: absolute;top: 25%;left: 25%;right: 25%;width: 30%;height: 160px;background: #fff;box-shadow: 0 0 20px rgba(0,0,0,0.7);margin: 0 auto;padding:30px 20px;font-size: 18px;line-height: 28px;border-radius:12px;font-family: 'Times New Roman';}.notifyModal a {text-decoration: none;font-size: 20px;font-family: 'Times New Roman';} .notifyModal span {font-weight: bold;font-size: 20px;font-family: 'Times New Roman';} .notifyOverlay{height: 100%;width: 100%;background: rgba(51, 51, 51, 0.43);position: fixed;top: 0;left: 0;z-index: 9999;} @media (max-width: 860px) { .notifyModal {left: 0;right: 0;width: initial;height: 180px; font-size: 16px;} .notifyModal a {font-size: 16px;}}";
+    var styleCode = ".notifyModal {position: absolute;top: 25%;left: 25%;right: 25%;width: 30%;height: 160px;background: #fff;box-shadow: 0 0 20px rgba(0,0,0,0.7);margin: 0 auto;padding:30px 20px;font-size: 18px;line-height: 28px;border-radius:12px;font-family: 'Times New Roman';-webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box;}.notifyModal a {text-decoration: none;font-size: 20px;font-family: 'Times New Roman';} .notifyModal span {font-weight: bold;font-size: 20px;font-family: 'Times New Roman';} .notifyOverlay{height: 100%;width: 100%;background: rgba(51, 51, 51, 0.43);position: fixed;top: 0;left: 0;z-index: 9999;} @media (max-width: 860px) { .notifyModal {left: 0;right: 0;width: initial;height: 180px; font-size: 16px;} .notifyModal a {font-size: 16px;}}";
     style.appendChild(document.createTextNode(styleCode));
     document.body.appendChild(style);
     overlay.appendChild(popup);
